@@ -13,7 +13,7 @@ TsbTab:CreateButton({
        
        Rayfield:Notify({
           Title = "Başarılı!",
-          Content = "Hızınız 32 olarak ayarlandı.",
+          Content = "Hızınız 100 olarak ayarlandı.",
           Duration = 3,
           Image = 4483362458,
        })
