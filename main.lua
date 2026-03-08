@@ -9,6 +9,22 @@ lpLogic.Setup(Window, Rayfield)
 tsbLogic.Setup(Window, Rayfield)
 debugLogic.Setup(Window, Rayfield)
 
+local SettingsTab = Window:CreateTab("Settings", 4483362458)
+
+SettingsTab:CreateButton({
+   Name = "Unload Script",
+   Callback = function()
+       local player = game.Players.LocalPlayer
+       if player.Character and player.Character:FindFirstChild("Humanoid") then
+           player.Character.Humanoid.WalkSpeed = 16
+       end
+       _G.LogDistance = nil
+       _G.DesiredSpeed = nil
+       
+       Rayfield:Destroy()
+   end,
+})
+
 Rayfield:Notify({
     Title = "System Ready",
     Content = "All modules loaded successfully!",
