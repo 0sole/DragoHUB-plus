@@ -4,9 +4,9 @@ function tsbModule.Setup(Window, Rayfield)
     local MainTab = Window:CreateTab("TSB", 4483362458)
     local vim = game:GetService("VirtualInputManager")
 
-    local dashSpeed = 120
+    local dashSpeed = 280
     local dashDuration = 0.25
-    local qDelay = 0.3
+    local qDelay = 0.1
     local sideDashAnimID = 10480370880
 
     MainTab:CreateKeybind({
