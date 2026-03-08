@@ -2,7 +2,7 @@ local menu = loadstring(game:HttpGet("https://raw.githubusercontent.com/0sole/Dr
 local lpLogic = loadstring(game:HttpGet("https://raw.githubusercontent.com/0sole/DragoHUB-plus/refs/heads/main/localplayer.lua"))()
 
 local Window, Rayfield = menu.CreateGui()
-local MainTab = Window:CreateTab("Ana Sayfa", 4483362458)
+local MainTab = Window:CreateTab("localplayer", 4483362458)
 local TsbTab = Window:CreateTab("TSB", 4483362458)
 
 
