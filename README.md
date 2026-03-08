@@ -1,2 +1,0 @@
-# DragoHUB-plus
-my scriptmenü
