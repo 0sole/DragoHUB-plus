@@ -1,23 +1,23 @@
 local lpModul = {}
 
 function lpModul.Setup(Window, Rayfield)
-    local MainTab = Window:CreateTab("localplayer", 4483362458)
+    local MainTab = Window:CreateTab("LocalPlayer", 4483362458)
 
-    local function HizAyarla(hizMiktari)
+    local function SetSpeed(speedValue)
         local player = game.Players.LocalPlayer
         if player.Character and player.Character:FindFirstChild("Humanoid") then
-            player.Character.Humanoid.WalkSpeed = hizMiktari
+            player.Character.Humanoid.WalkSpeed = speedValue
         end
-        _G.DesiredSpeed = hizMiktari
+        _G.DesiredSpeed = speedValue
     end
 
     MainTab:CreateButton({
-       Name = "Hız Hilesi (32)",
+       Name = "Speed Hack (32)",
        Callback = function()
-           HizAyarla(32)
+           SetSpeed(32)
            Rayfield:Notify({
-              Title = "Başarılı!",
-              Content = "Hızınız 32 yapıldı.",
+              Title = "Success",
+              Content = "Speed set to 32.",
               Duration = 3,
               Image = 4483362458,
            })
@@ -25,9 +25,9 @@ function lpModul.Setup(Window, Rayfield)
     })
 
     MainTab:CreateButton({
-       Name = "Normal Hız (16)",
+       Name = "Normal Speed (16)",
        Callback = function()
-           HizAyarla(16)
+           SetSpeed(16)
        end,
     })
 end

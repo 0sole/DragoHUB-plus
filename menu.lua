@@ -4,15 +4,15 @@ function menu.CreateGui()
    local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
     
    local Window = Rayfield:CreateWindow({
-      Name = "Rayfield Example Window",
+      Name = "DragoHUB Plus",
       Icon = 0,
-      LoadingTitle = "Rayfield Interface Suite",
+      LoadingTitle = "DragoHUB Suite",
       LoadingSubtitle = "by Sirius",
       Theme = "Default",
       ToggleUIKeybind = "L",
       ConfigurationSaving = {
          Enabled = true,
-         FileName = "Big Hub"
+         FileName = "DragoConfig"
       },
       KeySystem = false
    })

@@ -2,12 +2,12 @@ local tsbModule = {}
 
 function tsbModule.Setup(Window, Rayfield)
     local MainTab = Window:CreateTab("TSB", 4483362458)
+    local vim = game:GetService("VirtualInputManager")
 
-    local dashSpeed = 150
-    local qDelay = 0.05
+    local qDelay = 0.5 
 
     MainTab:CreateKeybind({
-       Name = "Front Dash (Right)",
+       Name = "Front Dash",
        CurrentKeybind = "V",
        HoldToInteract = false,
        Flag = "FrontDashKeybind", 
@@ -18,20 +18,27 @@ function tsbModule.Setup(Window, Rayfield)
 
            if hrp then
                local startPos = hrp.Position
-               hrp.Velocity = hrp.CFrame.RightVector * dashSpeed
                
-               task.wait(qDelay)
-               
-               game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.Q, false, game)
-               task.wait(0.01)
-               game:GetService("VirtualInputManager"):SendKeyEvent(false, Enum.KeyCode.Q, false, game)
+               vim:SendKeyEvent(true, Enum.KeyCode.D, false, game)
+               task.wait(0.02)
+               vim:SendKeyEvent(true, Enum.KeyCode.Q, false, game)
+               task.wait(0.02)
+               vim:SendKeyEvent(false, Enum.KeyCode.Q, false, game)
+               task.wait(0.02)
+               vim:SendKeyEvent(false, Enum.KeyCode.D, false, game)
 
                task.delay(0.5, function()
                    if _G.LogDistance and hrp then
-                       local distance = (hrp.Position - startPos).Magnitude
-                       print("Dash Distance: " .. tostring(distance))
+                       local sideDistance = (hrp.Position - startPos).Magnitude
+                       print("Side Dash Distance: " .. tostring(sideDistance))
                    end
                end)
+
+               task.wait(qDelay)
+               
+               vim:SendKeyEvent(true, Enum.KeyCode.Q, false, game)
+               task.wait(0.02)
+               vim:SendKeyEvent(false, Enum.KeyCode.Q, false, game)
            end
        end,
     })
