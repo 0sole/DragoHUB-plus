@@ -1,11 +1,13 @@
 local menu = loadstring(game:HttpGet("https://raw.githubusercontent.com/0sole/DragoHUB-plus/refs/heads/main/menu.lua"))()
 local lpLogic = loadstring(game:HttpGet("https://raw.githubusercontent.com/0sole/DragoHUB-plus/refs/heads/main/localplayer.lua"))()
 local movementLogic = loadstring(game:HttpGet("https://raw.githubusercontent.com/0sole/DragoHUB-plus/refs/heads/main/movement.lua"))()
+local extraLogic = loadstring(game:HttpGet("https://raw.githubusercontent.com/0sole/DragoHUB-plus/refs/heads/main/extra.lua"))()
 
 local Window, Rayfield = menu.CreateGui()
 
 lpLogic.Setup(Window, Rayfield)
 movementLogic.Setup(Window, Rayfield)
+extraLogic.Setup(Window, Rayfield)
 
 local SettingsTab = Window:CreateTab("Settings", 4483362458)
 
@@ -14,12 +16,13 @@ SettingsTab:CreateButton({
    Callback = function()
        _G.CFrameSpeedEnabled = false
        _G.FlyEnabled = false
+       _G.FollowEnabled = false
        Rayfield:Destroy()
    end,
 })
 
 Rayfield:Notify({
     Title = "System Ready",
-    Content = "All English modules loaded!",
+    Content = "All modules loaded!",
     Duration = 5
 })
