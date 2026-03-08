@@ -11,28 +11,47 @@ function extraModule.Setup(Window, Rayfield)
 
     local PlayerDropdown = ExtraTab:CreateDropdown({
        Name = "Target Player",
-       Options = {},
-       CurrentOption = "",
+       Options = {"Searching..."},
+       CurrentOption = {""},
        MultipleOptions = false,
        Flag = "TargetDropdown",
        Callback = function(Option)
-           _G.TargetPlayer = typeof(Option) == "table" and Option[1] or Option
+           local selected = type(Option) == "table" and Option[1] or Option
+           if selected and selected ~= "Searching..." then
+               _G.TargetPlayer = selected
+           end
        end,
     })
 
-    local function updatePlayerList()
-        local playerList = {}
-        for _, v in pairs(game.Players:GetPlayers()) do
-            if v ~= lp then
-                table.insert(playerList, v.Name)
+    local function updateList()
+        local playerNames = {}
+        for _, p in pairs(game.Players:GetPlayers()) do
+            if p ~= lp then
+                table.insert(playerNames, p.Name)
             end
         end
-        PlayerDropdown:Refresh(playerList, true)
+        
+        if #playerNames == 0 then
+            playerNames = {"No Players Found"}
+        end
+        
+        PlayerDropdown:Refresh(playerNames, true)
     end
 
-    game.Players.PlayerAdded:Connect(updatePlayerList)
-    game.Players.PlayerRemoving:Connect(updatePlayerList)
-    updatePlayerList()
+    game.Players.PlayerAdded:Connect(function()
+        task.wait(1)
+        updateList()
+    end)
+
+    game.Players.PlayerRemoving:Connect(function()
+        task.wait(1)
+        updateList()
+    end)
+
+    task.spawn(function()
+        task.wait(2)
+        updateList()
+    end)
 
     ExtraTab:CreateSlider({
        Name = "Follow Distance",
@@ -50,11 +69,11 @@ function extraModule.Setup(Window, Rayfield)
        CurrentKeybind = "V",
        HoldToInteract = false,
        Callback = function()
-           if _G.TargetPlayer ~= "" then
+           if _G.TargetPlayer ~= "" and _G.TargetPlayer ~= "No Players Found" then
                _G.FollowEnabled = not _G.FollowEnabled
                Rayfield:Notify({
-                   Title = "Follow", 
-                   Content = _G.FollowEnabled and "Active" or "Disabled", 
+                   Title = "Follow System", 
+                   Content = _G.FollowEnabled and "Following: " .. _G.TargetPlayer or "Follow Disabled", 
                    Duration = 2
                })
            end
@@ -69,6 +88,8 @@ function extraModule.Setup(Window, Rayfield)
                 if myHRP then
                     myHRP.CFrame = target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, _G.FollowDistance)
                 end
+            else
+                _G.FollowEnabled = false
             end
         end
     end)
