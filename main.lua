@@ -3,6 +3,22 @@ local lpLogic = loadstring(game:HttpGet("https://raw.githubusercontent.com/0sole
 
 local Window, Rayfield = menu.CreateGui()
 local MainTab = Window:CreateTab("Ana Sayfa", 4483362458)
+local TsbTab = Window:CreateTab("TSB", 4483362458)
+
+
+TsbTab:CreateButton({
+   Name = "M1 Tech",
+   Callback = function()
+       lpLogic.HizAyarla(100) 
+       
+       Rayfield:Notify({
+          Title = "Başarılı!",
+          Content = "Hızınız 32 olarak ayarlandı.",
+          Duration = 3,
+          Image = 4483362458,
+       })
+   end,
+})
 
 MainTab:CreateButton({
    Name = "Hız Hilesi (32)",
