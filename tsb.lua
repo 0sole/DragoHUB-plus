@@ -5,7 +5,7 @@ function tsbModule.Setup(Window, Rayfield)
     local vim = game:GetService("VirtualInputManager")
 
     local dashSpeed = 280
-    local dashDuration = 0.25
+    local dashDuration = 0.50
     local qDelay = 0.1
     local sideDashAnimID = 10480370880
 
