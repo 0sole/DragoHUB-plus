@@ -20,17 +20,19 @@ function extraModule.Setup(Window, Rayfield)
        end,
     })
 
-    task.spawn(function()
-        while task.wait(2) do
-            local playerList = {}
-            for _, v in pairs(game.Players:GetPlayers()) do
-                if v ~= lp then
-                    table.insert(playerList, v.Name)
-                end
+    local function updatePlayerList()
+        local playerList = {}
+        for _, v in pairs(game.Players:GetPlayers()) do
+            if v ~= lp then
+                table.insert(playerList, v.Name)
             end
-            PlayerDropdown:Refresh(playerList, true)
         end
-    end)
+        PlayerDropdown:Refresh(playerList, true)
+    end
+
+    game.Players.PlayerAdded:Connect(updatePlayerList)
+    game.Players.PlayerRemoving:Connect(updatePlayerList)
+    updatePlayerList()
 
     ExtraTab:CreateSlider({
        Name = "Follow Distance",
