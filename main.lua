@@ -1,5 +1,5 @@
-local UI_Module = loadstring(game:HttpGet("MODUL_LINKINIZ"))()
-local Window, Rayfield = UI_Module.CreateGui()
+local menu = loadstring(game:HttpGet("https://raw.githubusercontent.com/0sole/DragoHUB-plus/refs/heads/main/menu.lua"))()
+local Window, Rayfield = menu.CreateGui()
 
 local MainTab = Window:CreateTab("Ana Sayfa", 4483362458)
 
