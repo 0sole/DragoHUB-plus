@@ -4,9 +4,9 @@ function tsbModule.Setup(Window, Rayfield)
     local MainTab = Window:CreateTab("TSB", 4483362458)
     local vim = game:GetService("VirtualInputManager")
 
-    local dashSpeed = 280
-    local dashDuration = 0.50
-    local qDelay = 0.1
+    local dashDistance = 25 
+    local dashDuration = 0.2
+    local qDelay = 0.3
     local sideDashAnimID = 10480370880
 
     MainTab:CreateKeybind({
@@ -28,8 +28,14 @@ function tsbModule.Setup(Window, Rayfield)
                local loadAnim = humanoid:LoadAnimation(anim)
                loadAnim:Play()
 
-               hrp.AssemblyLinearVelocity = hrp.CFrame.RightVector * dashSpeed
-               task.wait(dashDuration)
+               local steps = 10
+               local stepDistance = dashDistance / steps
+               local waitTime = dashDuration / steps
+
+               for i = 1, steps do
+                   hrp.CFrame = hrp.CFrame * CFrame.new(stepDistance, 0, 0)
+                   task.wait(waitTime)
+               end
 
                task.delay(0.5, function()
                    if _G.LogDistance and hrp then
