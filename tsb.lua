@@ -4,7 +4,10 @@ function tsbModule.Setup(Window, Rayfield)
     local MainTab = Window:CreateTab("TSB", 4483362458)
     local vim = game:GetService("VirtualInputManager")
 
-    local qDelay = 0.3 
+    local dashSpeed = 120
+    local dashDuration = 0.25
+    local qDelay = 0.3
+    local sideDashAnimID = 10480370880
 
     MainTab:CreateKeybind({
        Name = "Front Dash",
@@ -14,30 +17,31 @@ function tsbModule.Setup(Window, Rayfield)
        Callback = function(Keybind)
            local player = game.Players.LocalPlayer
            local character = player.Character
+           local humanoid = character and character:FindFirstChild("Humanoid")
            local hrp = character and character:FindFirstChild("HumanoidRootPart")
 
-           if hrp then
+           if hrp and humanoid then
                local startPos = hrp.Position
                
-               vim:SendKeyEvent(true, Enum.KeyCode.D, false, game)
-               task.wait(0.02)
-               vim:SendKeyEvent(true, Enum.KeyCode.Q, false, game)
-               task.wait(0.02)
-               vim:SendKeyEvent(false, Enum.KeyCode.Q, false, game)
-               task.wait(0.02)
-               vim:SendKeyEvent(false, Enum.KeyCode.D, false, game)
+               local anim = Instance.new("Animation")
+               anim.AnimationId = "rbxassetid://" .. sideDashAnimID
+               local loadAnim = humanoid:LoadAnimation(anim)
+               loadAnim:Play()
+
+               hrp.AssemblyLinearVelocity = hrp.CFrame.RightVector * dashSpeed
+               task.wait(dashDuration)
 
                task.delay(0.5, function()
                    if _G.LogDistance and hrp then
-                       local sideDistance = (hrp.Position - startPos).Magnitude
-                       print("Side Dash Distance: " .. tostring(sideDistance))
+                       local distance = (hrp.Position - startPos).Magnitude
+                       print("Dash Distance: " .. tostring(distance))
                    end
                end)
 
                task.wait(qDelay)
                
                vim:SendKeyEvent(true, Enum.KeyCode.Q, false, game)
-               task.wait(0.02)
+               task.wait(0.01)
                vim:SendKeyEvent(false, Enum.KeyCode.Q, false, game)
            end
        end,

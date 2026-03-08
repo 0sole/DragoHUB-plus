@@ -20,7 +20,6 @@ SettingsTab:CreateButton({
        end
        _G.LogDistance = nil
        _G.DesiredSpeed = nil
-       
        Rayfield:Destroy()
    end,
 })

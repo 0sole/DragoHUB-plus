@@ -15,12 +15,6 @@ function lpModul.Setup(Window, Rayfield)
        Name = "Speed Hack (32)",
        Callback = function()
            SetSpeed(32)
-           Rayfield:Notify({
-              Title = "Success",
-              Content = "Speed set to 32.",
-              Duration = 3,
-              Image = 4483362458,
-           })
        end,
     })
 

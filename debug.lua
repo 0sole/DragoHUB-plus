@@ -5,7 +5,7 @@ function debugModule.Setup(Window, Rayfield)
     _G.LogDistance = false
 
     DebugTab:CreateToggle({
-       Name = "Log Side Dash Distance",
+       Name = "Log Dash Distance",
        CurrentValue = false,
        Flag = "LogDistance",
        Callback = function(Value)
